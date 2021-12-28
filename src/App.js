@@ -3,19 +3,33 @@ import { Header } from './components/Header/Header';
 import { Drawer } from './components/Drawer/Drawer';
 import React from 'react';
 
-const arr = [
-  { title: 'Мужские Кроссовки Nike Blazer Mid Suede', price: '129.00', imageUrl: "/img/sneakers/1.jpg"},
-  { title: 'Мужские Кроссовки Nike Air Max 270', price: '199.79', imageUrl: "/img/sneakers/2.jpg"},
-  { title: 'Мужские Кроссовки Nike Blazer Mid Suede', price: '204.95', imageUrl: "/img/sneakers/3.jpg"},
-  { title: 'Кроссовки Puma X Aka Boku Future Rider', price: '235.00', imageUrl: "/img/sneakers/4.jpg"},
-]
-
 function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
+  const [cartItems, setCartItems] = React.useState([ {
+  "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+  "price": 129,
+  "imageUrl": "/img/sneakers/1.jpg"
+ },
+ {
+  "title": "Мужские Кроссовки Nike Air Max 270",
+  "price": 199.79,
+  "imageUrl": "/img/sneakers/2.jpg"
+ }]);
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://61ca295220ac1c0017ed8fe2.mockapi.io/items')
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setItems(json);
+      });
+  }, []);
 
   return (
     <div className="wrapper clear">
-      {cartOpened ? <Drawer onClose={() => setCartOpened(false)}/> : null}
+      {cartOpened ? <Drawer items={cartItems} onClose={() => setCartOpened(false)}/> : null}
       <Header onClickCart={() => setCartOpened(true)}/>
       <div className="content p-40">
         <div className="d-flex align-center mb-40 justify-between">
@@ -25,8 +39,8 @@ function App() {
             <input placeholder="Search..." />
           </div>
         </div>
-        <div className="d-flex">
-          {arr.map((el) => (
+        <div className="d-flex flex-wrap">
+          {items.map((el) => (
             <Card 
               title={el.title}
               price={el.price}

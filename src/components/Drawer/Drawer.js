@@ -1,30 +1,24 @@
 import React from 'react';
 
-export const Drawer = (props) => {
+export const Drawer = ({ onClose, items = []}) => {
 	return (
 		<div className="overlay" >
 			<div className="drawer">
 				<h2 className="d-flex justify-between mb-30">
 					Cart
-					<img className="removeBtn cu-p" onClick={props.onClose} src="/img/btn-remove.svg" alt="Remove"/>
+					<img className="removeBtn cu-p" onClick={onClose} src="/img/btn-remove.svg" alt="Remove"/>
 				</h2>
 				<div className="items">
-					<div className="cartItem d-flex align-center mb-20">
-						<img className="mr-20" width={70} height={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
-						<div className="mr-20">
-							<p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-							<b>129.00 $</b>
+					{items.map((obj) => (
+						<div className="cartItem d-flex align-center mb-20">
+							<img className="mr-20" width={70} height={70} src={obj.imageUrl} alt="Sneakers"/>
+								<div className="mr-20">
+									<p className="mb-5">{obj.title}</p>
+									<b>{obj.price} $</b>
+								</div>
+							<img className="removeBtn" src="/img/btn-remove.svg" alt="Remove"/>
 						</div>
-						<img className="removeBtn" src="/img/btn-remove.svg" alt="Remove"/>
-					</div>
-					<div className="cartItem d-flex align-center">
-						<img className="mr-20" width={70} height={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
-						<div className="mr-20">
-							<p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-							<b>129.00 $</b>
-						</div>
-						<img className="removeBtn" src="/img/btn-remove.svg" alt="Remove"/>
-					</div>
+					))}
 				</div>
 				<div className="cartTotalBLock">
 					<ul>
