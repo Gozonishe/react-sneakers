@@ -5,16 +5,7 @@ import React from 'react';
 
 function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
-  const [cartItems, setCartItems] = React.useState([ {
-  "title": "Мужские Кроссовки Nike Blazer Mid Suede",
-  "price": 129,
-  "imageUrl": "/img/sneakers/1.jpg"
- },
- {
-  "title": "Мужские Кроссовки Nike Air Max 270",
-  "price": 199.79,
-  "imageUrl": "/img/sneakers/2.jpg"
- }]);
+  const [cartItems, setCartItems] = React.useState([]);
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
