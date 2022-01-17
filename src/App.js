@@ -18,9 +18,17 @@ function App() {
       });
   }, []);
 
+  const onAddToCart = (obj) => {
+    setCartItems(prev => [...prev, obj]);
+  }
+
+  const onDeleteCartItem = (obj) => {
+    setCartItems(cartItems.filter(item => item.obj != obj))
+  }
+
   return (
     <div className="wrapper clear">
-      {cartOpened ? <Drawer items={cartItems} onClose={() => setCartOpened(false)}/> : null}
+      {cartOpened ? <Drawer items={cartItems} onDelete={() => onDeleteCartItem()} onClose={() => setCartOpened(false)}/> : null }
       <Header onClickCart={() => setCartOpened(true)}/>
       <div className="content p-40">
         <div className="d-flex align-center mb-40 justify-between">
@@ -31,13 +39,13 @@ function App() {
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {items.map((el) => (
+          {items.map((item) => (
             <Card 
-              title={el.title}
-              price={el.price}
-              imageUrl={el.imageUrl}
+              title={item.title}
+              price={item.price}
+              imageUrl={item.imageUrl}
               onClickFavorite={() => console.log('в закладки')}
-              onClickPlus={()=>console.log(el)}
+              onPlus={() => onAddToCart(item)}
               />
           ))}
         </div>
