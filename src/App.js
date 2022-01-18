@@ -7,6 +7,7 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]);
   const [items, setItems] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
 
   React.useEffect(() => {
     fetch('https://61ca295220ac1c0017ed8fe2.mockapi.io/items')
@@ -22,8 +23,12 @@ function App() {
     setCartItems(prev => [...prev, obj]);
   }
 
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value)
+  }
+
   const onDeleteCartItem = (obj) => {
-    setCartItems(cartItems.filter(item => item.obj != obj))
+    setCartItems(cartItems.filter(item => item.obj !== obj))
   }
 
   return (
@@ -32,15 +37,20 @@ function App() {
       <Header onClickCart={() => setCartOpened(true)}/>
       <div className="content p-40">
         <div className="d-flex align-center mb-40 justify-between">
-          <h1>All Sneakers</h1>
+          <h1>{searchValue ? `Sneakers found: ${searchValue}` : `All Sneakers`}</h1>
           <div className="search-block d-flex">
             <img src="/img/search.svg" alt="Search"/>
-            <input placeholder="Search..." />
+            {searchValue && 
+            <img className="clear cu-p" onClick={() => setSearchValue('')} src="/img/btn-remove.svg" alt="Remove"/>}
+            <input placeholder="Search..." onChange={onChangeSearchInput} value={searchValue}/>
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {items.map((item) => (
+          {items
+            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+            .map((item, index) => (
             <Card 
+              key={index}
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
