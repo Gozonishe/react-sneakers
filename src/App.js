@@ -1,6 +1,7 @@
-import { Card } from './components/Card/Card';
 import { Header } from './components/Header/Header';
 import { Drawer } from './components/Drawer/Drawer';
+import { Route, Router } from 'react-router-dom';
+import Home from './pages/Home';
 import axios from 'axios';
 import React from 'react';
 
@@ -43,32 +44,13 @@ function App() {
   return (
     <div className="wrapper clear">
       {cartOpened ? <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)}/> : null }
+
       <Header onClickCart={() => setCartOpened(true)}/>
-      <div className="content p-40">
-        <div className="d-flex align-center mb-40 justify-between">
-          <h1>{searchValue ? `Sneakers found: ${searchValue}` : `All Sneakers`}</h1>
-          <div className="search-block d-flex">
-            <img src="/img/search.svg" alt="Search"/>
-            {searchValue && 
-            <img className="clear cu-p" onClick={() => setSearchValue('')} src="/img/btn-remove.svg" alt="Remove"/>}
-            <input placeholder="Search..." onChange={onChangeSearchInput} value={searchValue}/>
-          </div>
-        </div>
-        <div className="d-flex flex-wrap">
-          {items
-            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-            .map((item, index) => (
-            <Card 
-              key={index}
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onPlus={() => onAddToCart(item)}
-              />
-          ))}
-        </div>
-      </div>
+
+      <Route path="/" exact>
+        <Home />
+      </Route>
+
     </div>
   );
 }
