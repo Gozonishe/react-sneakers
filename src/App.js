@@ -7,6 +7,7 @@ import React from 'react';
 function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
   const [items, setItems] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
 
@@ -34,6 +35,11 @@ function App() {
     setCartItems((prev) => prev.filter(item => item.id !== id));
   }
 
+  const onAddToFavorite = (obj) => {
+    axios.post('https://61ca295220ac1c0017ed8fe2.mockapi.io/favorites', obj)
+    setFavorites((prev) => [...prev, obj]);
+  }
+
   return (
     <div className="wrapper clear">
       {cartOpened ? <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)}/> : null }
@@ -57,7 +63,7 @@ function App() {
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}
-              onClickFavorite={() => console.log('в закладки')}
+              onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={() => onAddToCart(item)}
               />
           ))}
