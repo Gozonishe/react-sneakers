@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Card.module.scss';
 
-export const Card = ({ onPlus, title, price, imageUrl, onFavorite }) => {
+export const Card = ({ id, onPlus, title, price, imageUrl, onFavorite, favorited = false }) => {
 		const [isAdded, setIsAdded] = React.useState(false);
-		const [isFavorite, setFavorite] = React.useState(false);
+		const [isFavorite, setFavorite] = React.useState(favorited);
 
 		const onClickPlus = () => {
 			onPlus({title, price, imageUrl});
@@ -11,7 +11,7 @@ export const Card = ({ onPlus, title, price, imageUrl, onFavorite }) => {
 		}
 
 		const onClickFavorite = () => {
-			onFavorite({title, price, imageUrl});
+			onFavorite({id, title, price, imageUrl});
 			setFavorite(!isFavorite)
 		}
 
@@ -32,4 +32,6 @@ export const Card = ({ onPlus, title, price, imageUrl, onFavorite }) => {
 		</div>
 	);
 }
+
+export default Card;
 

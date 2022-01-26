@@ -1,6 +1,6 @@
-import { Card } from '../components/Card';
+import { Card } from '../components/Card/Card';
 
-export default function Home() {
+export default function Home( {items,searchValue,setSearchValue,onChangeSearchInput,onAddToFavorite,onAddToCart} ) {
 	return (
 		<div className="content p-40">
 			<div className="d-flex align-center mb-40 justify-between">
@@ -18,11 +18,9 @@ export default function Home() {
 					.map((item, index) => (
 					<Card
 						key={index}
-						title={item.title}
-						price={item.price}
-						imageUrl={item.imageUrl}
 						onFavorite={(obj) => onAddToFavorite(obj)}
 						onPlus={() => onAddToCart(item)}
+						{...item}
 						/>
 				))}
 			</div>
