@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { Header } from './components/Header/Header';
 import { Drawer } from './components/Drawer/Drawer';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
@@ -29,8 +29,13 @@ function App() {
   }, []);
 
   const onAddToCart = (obj) => {
+    if (cartItems.find((item => Number(item.id) === Number(obj.id)))) {
+      setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      axios.delete(`https://61ca295220ac1c0017ed8fe2.mockapi.io/cart/${obj.id}`);
+    } else {
     axios.post('https://61ca295220ac1c0017ed8fe2.mockapi.io/cart', obj);
     setCartItems(prev => [...prev, obj]);
+    }
   };
 
   const onChangeSearchInput = (event) => {
