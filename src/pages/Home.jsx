@@ -1,10 +1,18 @@
 import { Card } from '../components/Card/Card';
 
-export default function Home( {items,searchValue,setSearchValue,onChangeSearchInput,onAddToFavorite,onAddToCart} ) {
+export default function Home( {
+	items,
+	cartItems,
+	searchValue,
+	setSearchValue,
+	onChangeSearchInput,
+	onAddToFavorite,
+	onAddToCart
+}) {
 	return (
 		<div className="content p-40">
 			<div className="d-flex align-center mb-40 justify-between">
-				<h1>{searchValue ? `Sneakers found: ${searchValue}` : `All Sneakers`}</h1>
+				<h1>{searchValue ? `Sneakers found: ${searchValue}` : `All sneakers`}</h1>
 				<div className="search-block d-flex">
 					<img src="/img/search.svg" alt="Search"/>
 					{searchValue && 
@@ -20,6 +28,7 @@ export default function Home( {items,searchValue,setSearchValue,onChangeSearchIn
 						key={index}
 						onFavorite={(obj) => onAddToFavorite(obj)}
 						onPlus={() => onAddToCart(item)}
+						//added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
 						{...item}
 						/>
 				))}

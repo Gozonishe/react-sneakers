@@ -15,17 +15,16 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
 
   React.useEffect(() => {
-      axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/items').then((res) => {
-        setItems(res.data);
-      });
+      async function fetchData() {
+        const cartResponse = await axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/cart');
+        const favoritesResponse = await axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/favorites');
+        const itemsResponse = await axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/items');
 
-      axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/cart').then((res) => {
-        setCartItems(res.data);
-      });
-
-      axios.get('https://61ca295220ac1c0017ed8fe2.mockapi.io/favorites').then((res) => {
-        setFavorites(res.data);
-      })
+        setCartItems(cartResponse.data);
+        setFavorites(favoritesResponse.data);
+        setItems(itemsResponse.data);
+    }
+    fetchData();
   }, []);
 
   const onAddToCart = (obj) => {
@@ -67,7 +66,8 @@ function App() {
 
       <Header onClickCart={() => setCartOpened(true)}/>
       <Routes>
-        <Route path="/" exact element={ <Home items={items} 
+        <Route path="/" exact element={ <Home items={items}
+                                              cartItems={cartItems}s
                                               searchValue={searchValue} 
                                               setSearchValue={setSearchValue} 
                                               onChangeSearchInput={onChangeSearchInput}
