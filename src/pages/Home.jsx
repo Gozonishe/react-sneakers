@@ -20,6 +20,7 @@ export default function Home( {
 					<input placeholder="Search..." onChange={onChangeSearchInput} value={searchValue}/>
 				</div>
 			</div>
+			{console.log(cartItems)}
 			<div className="d-flex flex-wrap">
 				{items
 					.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
@@ -27,8 +28,8 @@ export default function Home( {
 					<Card
 						key={index}
 						onFavorite={(obj) => onAddToFavorite(obj)}
-						onPlus={() => onAddToCart(item)}
-						//added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
+						onPlus={(obj) => onAddToCart(obj)}
+						added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
 						{...item}
 						/>
 				))}
