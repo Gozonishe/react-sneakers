@@ -1,8 +1,9 @@
+import React from 'react';
+
 import { Card } from '../components/Card/Card';
 
 export default function Home( {
 	items,
-	cartItems,
 	searchValue,
 	setSearchValue,
 	onChangeSearchInput,
@@ -20,7 +21,6 @@ export default function Home( {
 						key={index}
 						onFavorite={(obj) => onAddToFavorite(obj)}
 						onPlus={(obj) => onAddToCart(obj)}
-						added={cartItems.some(obj => Number(obj.id) === Number(item.id))}
 						loading={isLoading}
 						{...item}
 						/>
@@ -38,7 +38,6 @@ export default function Home( {
 					<input placeholder="Search..." onChange={onChangeSearchInput} value={searchValue}/>
 				</div>
 			</div>
-			{console.log(cartItems, items)}
 			<div className="d-flex flex-wrap">
 				{renderItems()}
 			</div>

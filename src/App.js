@@ -3,6 +3,7 @@ import React from 'react';
 import { Header } from './components/Header/Header';
 import { Drawer } from './components/Drawer/Drawer';
 import { Route, Routes } from 'react-router-dom';
+import AppContext from './context';
 
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
@@ -51,9 +52,9 @@ function App() {
 
   const onAddToFavorite = async (obj) => {
     try {
-      if (favorites.find((favObj) => favObj.id === obj.id)) {
+      if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(`https://61ca295220ac1c0017ed8fe2.mockapi.io/favorites/${obj.id}`);
-        setFavorites((prev) => prev.filter(item => item.id !== obj.id));
+        setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
       } else {
         const { data } = await axios.post('https://61ca295220ac1c0017ed8fe2.mockapi.io/favorites', obj);
         setFavorites((prev) => [...prev, data]);
@@ -63,24 +64,28 @@ function App() {
     }
   };
 
-  return (
-    <div className="wrapper clear">
-      {cartOpened ? <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)}/> : null }
+  const isItemAdded = (id) => {
+    return cartItems.some((obj) => Number(obj.id) === Number(id));
+  }
 
-      <Header onClickCart={() => setCartOpened(true)}/>
-      <Routes>
-        <Route path="/" exact element={ <Home items={items}
-                                              cartItems={cartItems}
-                                              searchValue={searchValue} 
-                                              setSearchValue={setSearchValue} 
-                                              onChangeSearchInput={onChangeSearchInput}
-                                              onAddToFavorite={onAddToFavorite}
-                                              onAddToCart={onAddToCart}
-                                              isLoading={isLoading}/>}/>
-        <Route path="/favorites" exact element={ <Favorites items={favorites}
-                                                            onAddToFavorite={onAddToFavorite}/>}/>
-      </Routes>
-    </div>
+  return (
+    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite }}>
+      <div className="wrapper clear">
+        {cartOpened ? <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)}/> : null }
+        <Header onClickCart={() => setCartOpened(true)}/>
+          <Routes>
+            <Route path="/" exact element={ <Home items={items}
+                                                  cartItems={cartItems}
+                                                  searchValue={searchValue} 
+                                                  setSearchValue={setSearchValue} 
+                                                  onChangeSearchInput={onChangeSearchInput}
+                                                  onAddToFavorite={onAddToFavorite}
+                                                  onAddToCart={onAddToCart}
+                                                  isLoading={isLoading}/>}/>
+            <Route path="/favorites" exact element={<Favorites />}/>
+          </Routes>
+      </div>
+    </AppContext.Provider>
   );
 }
 
