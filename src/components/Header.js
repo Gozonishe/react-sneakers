@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import '../index.scss';
+
 export const Header = (props) => {
 	return (
 		<header className="d-flex justify-between	p-40">

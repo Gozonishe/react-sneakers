@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 
-import AppContext from '../../context';
-import Info from '../Info/Info';
+import AppContext from '../context';
+import '../index.scss';
+import Info from './Info';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -15,7 +16,7 @@ export const Drawer = ({ onClose, onRemove, items = [] }) => {
 	const onClickOrder = async () => {
 		try {
 			setIsLoading(true);
-			const {data} = await axios.post('/orders', {
+			const {data} = await axios.post('https://61ca295220ac1c0017ed8fe2.mockapi.io/orders', {
 				items: cartItems,
 			});
 			setOrderId(data.id);
@@ -24,12 +25,12 @@ export const Drawer = ({ onClose, onRemove, items = [] }) => {
 
 			for (let i = 0; i < cartItems.length; i++) {
 				const item = cartItems[i];
-				await axios.delete('/cart' + item.id);
+				await axios.delete('https://61ca295220ac1c0017ed8fe2.mockapi.io/cart/' + item.id);
 				await delay(1000);
 			}
 
 		} catch (error) {
-			alert('Не удалось создать заказ!')
+			alert('Ошбика при создании заказа!')
 		}
 		setIsLoading(false);
 	};

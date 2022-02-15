@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import { Header } from './components/Header/Header';
-import { Drawer } from './components/Drawer/Drawer';
+import { Header } from './components/Header';
+import { Drawer } from './components/Drawer';
 import { Route, Routes } from 'react-router-dom';
 import AppContext from './context';
 
