@@ -7,6 +7,7 @@ import AppContext from './context';
 
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
+import Orders from './pages/Orders';
 
 function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
@@ -83,6 +84,7 @@ function App() {
                                                   onAddToCart={onAddToCart}
                                                   isLoading={isLoading}/>}/>
             <Route path="/favorites" exact element={<Favorites />}/>
+            <Route path="/orders" exact element={<Orders />}/>
           </Routes>
       </div>
     </AppContext.Provider>
