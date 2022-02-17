@@ -46,7 +46,9 @@ export const Card = ({
 					</ContentLoader> :
 					<>
 						<div className={styles.favorite} onClick={onClickFavorite}>
-							<img src={isFavorite? "/img/liked.svg": "/img/unliked.svg"} alt="Unliked"/>
+							{onFavorite && (
+								<img src={isFavorite? "/img/liked.svg": "/img/unliked.svg"} alt="Unliked"/>
+							)}
 						</div>
 						<img className={styles.sneaker} width={133} height={112} src={imageUrl} alt="card" />
 						<h5>{title}</h5>
@@ -55,7 +57,14 @@ export const Card = ({
 								<span>Price:</span>
 								<b>{price} $</b>
 						</div>
-								<img className={styles.plus} onClick={onClickPlus} src={isItemAdded(id) ? "/img/btn-checked.svg":"/img/btn-plus.svg"} alt="plus"/>
+						{onPlus && (
+							<img 
+								className={styles.plus} 
+								onClick={onClickPlus} 
+								src={isItemAdded(id) ? "/img/btn-checked.svg":"/img/btn-plus.svg"} 
+								alt="plus"
+							/>
+						)}
 						</div>
 					</>
 			}

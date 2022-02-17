@@ -25,7 +25,7 @@ export default function Favorites() {
 				</div>
 			</div> ) : (
 				<div className='favoriteEmpty'>
-					<h1>No Favorite Sneakers</h1>
+					<h1>No Favorite Sneakers.</h1>
 				</div>
 			)
 			}
