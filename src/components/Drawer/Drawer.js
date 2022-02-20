@@ -41,12 +41,12 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 		<div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`} >
 			<div className={styles.drawer}>
 				<h2 className="d-flex justify-between mb-30">
-					Cart
+					Cart.
 					<img className="removeBtn cu-p" onClick={onClose} src="/img/btn-remove.svg" alt="Remove"/>
 				</h2>
 				{items.length > 0 ? (
-				<div>
-					<div className="items">
+				<div className="d-flex flex-column flex">
+					<div className="items flex">
 						{items.map((obj) => (
 							<div key={obj.id} className="cartItem d-flex align-center mb-20">
 								<img className="mr-20" width={70} height={70} src={obj.imageUrl} alt="Sneakers"/>
@@ -77,7 +77,7 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 					</div>
 				</div>			
 				) : ( 			
-					<Info 
+					<Info
 						title={isOrderComplete ? "Order complete!" : "Cart is empty"} 
 						description={isOrderComplete ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке` :"Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."} 
 						image={isOrderComplete ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}/>	
