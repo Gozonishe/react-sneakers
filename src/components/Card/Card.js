@@ -49,7 +49,7 @@ export const Card = ({
 					<>
 						{onFavorite && (
 							<div className={styles.favorite} onClick={onClickFavorite}>
-									<img src={isFavorite? "/img/liked.svg": "/img/unliked.svg"} alt="Unliked"/>
+									<img src={isFavorite? "img/liked.svg": "img/unliked.svg"} alt="Unliked"/>
 							</div>
 						)}
 						<img width="100%" height={140} src={imageUrl} alt="Sneakers"  />

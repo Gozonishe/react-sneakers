@@ -42,7 +42,7 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 			<div className={styles.drawer}>
 				<h2 className="d-flex justify-between mb-30">
 					Cart.
-					<img className="removeBtn cu-p" onClick={onClose} src="/img/btn-remove.svg" alt="Remove"/>
+					<img className="removeBtn cu-p" onClick={onClose} src="img/btn-remove.svg" alt="Remove"/>
 				</h2>
 				{items.length > 0 ? (
 				<div className="d-flex flex-column flex">
@@ -54,7 +54,7 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 										<p className="mb-5">{obj.title}</p>
 										<b>{obj.price} $</b>
 									</div>
-								<img className="removeBtn" onClick={() => onRemove(obj.id)} src="/img/btn-remove.svg" alt="Remove"/>
+								<img className="removeBtn" onClick={() => onRemove(obj.id)} src="img/btn-remove.svg" alt="Remove"/>
 							</div>
 						))}
 					</div>
@@ -72,7 +72,7 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 							</li>
 						</ul>
 						<button disabled={isLoading} className="greenButton" onClick={onClickOrder}>
-							Purchase Order <img src="/img/arrow.svg" alt="Arrow" />
+							Purchase Order <img src="img/arrow.svg" alt="Arrow" />
 						</button>
 					</div>
 				</div>			
@@ -80,7 +80,7 @@ export const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 					<Info
 						title={isOrderComplete ? "Order complete!" : "Cart is empty"} 
 						description={isOrderComplete ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке` :"Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."} 
-						image={isOrderComplete ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}/>	
+						image={isOrderComplete ? "img/complete-order.jpg" : "img/empty-cart.jpg"}/>	
 				)}
 			</div>
 		</div>
