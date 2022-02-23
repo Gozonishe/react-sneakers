@@ -107,7 +107,7 @@ function App() {
         />
         <Header onClickCart={() => setCartOpened(true)}/>
           <Routes>
-            <Route path="" exact element={ <Home items={items}
+            <Route path="/" exact element={ <Home items={items}
                                                   cartItems={cartItems}
                                                   searchValue={searchValue} 
                                                   setSearchValue={setSearchValue} 
@@ -115,8 +115,8 @@ function App() {
                                                   onAddToFavorite={onAddToFavorite}
                                                   onAddToCart={onAddToCart}
                                                   isLoading={isLoading}/>}/>
-            <Route path="favorites" exact element={<Favorites />}/>
-            <Route path="orders" exact element={<Orders />}/>
+            <Route path="/favorites" exact element={<Favorites />}/>
+            <Route path="/orders" exact element={<Orders />}/>
           </Routes>
       </div>
     </AppContext.Provider>
