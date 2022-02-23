@@ -30,7 +30,7 @@ export const Card = ({
 	return (
 		<div className={styles.card}>
 			{
-				loading ? 
+				loading ? (
 					<ContentLoader 
 						speed={2}
 						width={165}
@@ -44,14 +44,16 @@ export const Card = ({
 						<rect x="0" y="187" rx="5" ry="5" width="100" height="15" /> 
 						<rect x="1" y="234" rx="5" ry="5" width="80" height="25" /> 
 						<rect x="124" y="230" rx="10" ry="10" width="32" height="32" />
-					</ContentLoader> :
+					</ContentLoader>
+				) : (
 					<>
-						<div className={styles.favorite} onClick={onClickFavorite}>
-							{onFavorite && (
-								<img src={isFavorite? "/img/liked.svg": "/img/unliked.svg"} alt="Unliked"/>
-							)}
-						</div>
-						<img className={styles.sneaker} width={133} height={112} src={imageUrl} alt="card" />
+						{onFavorite && (
+							<div className={styles.favorite} onClick={onClickFavorite}>
+									<img src={isFavorite? "/img/liked.svg": "/img/unliked.svg"} alt="Unliked"/>
+							</div>
+						)}
+						<img width="100%" height={140} src={imageUrl} alt="Sneakers"  />
+						{/* <img className={styles.sneaker} width={133} height={112} src={imageUrl} alt="card" /> */}
 						<h5>{title}</h5>
 						<div className="d-flex justify-between align-center">
 							<div className="d-flex flex-column">
@@ -68,7 +70,7 @@ export const Card = ({
 						)}
 						</div>
 					</>
-			}
+			)}
 		</div>
 	);
 }
